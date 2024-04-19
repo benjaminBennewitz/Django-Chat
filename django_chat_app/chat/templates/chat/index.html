@@ -6,6 +6,11 @@
     .page-content{
         padding:100px;
     }
+    .dates{
+        color:#ff4081;
+        margin-right: 8px;
+        font-size: 8pt;
+    }
 </style>
 
 <!-- Always shows a header, even in smaller screens. -->
@@ -13,7 +18,13 @@
     <header class="mdl-layout__header">
         <div class="mdl-layout__header-row">
             <!-- Title -->
-            <span class="mdl-layout-title">Welcome {{request.user.first_name}}</span>
+            <span class="mdl-layout-title">
+                {% if request.user.is_authenticated %}
+                    Welcome {{request.user.first_name}}
+                {% else %}
+                    Welcome" Please login
+                {% endif %}
+            </span>
             <!-- Add spacer, to align navigation to the right -->
             <div class="mdl-layout-spacer"></div>
             <!-- Navigation. We hide it in small screens. -->
@@ -38,6 +49,16 @@
         <div class="page-content">
             <!-- Textfield with Floating Label -->
 
+            {% if request.user.is_authenticated %}
+
+
+            {% for message in messages %}
+            <div>
+                <i class="dates">[{{ message.created_at }}]</i><b>{{ message.author.first_name }}:</b> {{ message.text }}
+            </div>
+            {% endfor %}
+
+
             <form action="/chat/" method="post">
                 {% csrf_token %}
                 <!-- erzeugt ein verstecktes token vom typ hidden: type="hidden"
@@ -52,6 +73,14 @@
                 Button
             </button>
             </form>
+
+            {% else %}
+                <h2>Bitte einloggen!</h2>
+                <p>Du bist derzeit nicht eingeloggt. Nachrichten werden nur für eingeloggte Mitglieder angezeigt<br>
+                    Hier gehts zum <a href="#">Login</a>
+                </p>
+
+            {% endif %}
 
         </div>
     </main>
