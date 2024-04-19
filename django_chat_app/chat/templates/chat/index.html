@@ -22,7 +22,7 @@
                 {% if request.user.is_authenticated %}
                     Welcome {{request.user.first_name}}
                 {% else %}
-                    Welcome" Please login
+                    Welcome! Please login
                 {% endif %}
             </span>
             <!-- Add spacer, to align navigation to the right -->
@@ -77,7 +77,7 @@
             {% else %}
                 <h2>Bitte einloggen!</h2>
                 <p>Du bist derzeit nicht eingeloggt. Nachrichten werden nur für eingeloggte Mitglieder angezeigt<br>
-                    Hier gehts zum <a href="#">Login</a>
+                    Hier gehts zum <a href="/login/">Login</a>
                 </p>
 
             {% endif %}
