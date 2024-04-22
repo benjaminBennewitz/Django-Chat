@@ -21,8 +21,12 @@ def login__screen(request):
     if request.method == "POST":
         user = authenticate(username=request.POST.get('username'), password=request.POST.get('password'))
         if user:
-            login(request, user)
-            return HttpResponseRedirect(request.POST.get('redirect'))
+            if redirect:
+                login(request, user)
+                return HttpResponseRedirect(request.POST.get('redirect'))
+            else:
+                login(request, user)
+                return HttpResponseRedirect() # ???
         else:
             return render(request, 'auth/login.html', {'wrongPassword':True, 'redirect':redirect})
     return render(request, 'auth/login.html', {'redirect':redirect})
