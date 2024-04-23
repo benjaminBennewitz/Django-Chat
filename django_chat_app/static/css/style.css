@@ -1,0 +1,16 @@
+.page-content{
+    padding:100px;
+}
+.dates{
+    color:#ff4081;
+    margin-right: 8px;
+    font-size: 8pt;
+}
+
+.all-gray{
+    color:gray;
+}
+
+.read{
+    color:green !important;
+}

@@ -4,6 +4,8 @@ from chat.models import Message
 from chat.models import Chat
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.core import serializers
 
 # Create your views here.
 
@@ -12,7 +14,9 @@ def index(request):
     if request.method == "POST":
         print("Recieved data: " + request.POST['txtmessage'])
         myChat = Chat.objects.get(id=1)
-        Message.objects.create(text=request.POST['txtmessage'], chat=myChat, author=request.user, reciever=request.user)
+        new_Message = Message.objects.create(text=request.POST['txtmessage'], chat=myChat, author=request.user, reciever=request.user)
+        serialized_obj = serializers.serialize('json', [new_Message])
+        return JsonResponse(serialized_obj[1:-1], safe=False)
     chatMessages = Message.objects.filter(chat__id=1)
     return render(request, 'chat/index.html', {'messages': chatMessages})
 

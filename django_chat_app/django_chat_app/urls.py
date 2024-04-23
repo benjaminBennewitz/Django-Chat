@@ -18,9 +18,12 @@ from django.contrib import admin
 from django.urls import path
 
 from chat.views import index, login__screen
+from django_chat_app.django_chat_app import settings
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('chat/', index),
     path('login/', login__screen),
-]
+]  + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
