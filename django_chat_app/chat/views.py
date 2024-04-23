@@ -26,7 +26,7 @@ def login__screen(request):
                 return HttpResponseRedirect(request.POST.get('redirect'))
             else:
                 login(request, user)
-                return HttpResponseRedirect() # ???
+                return HttpResponseRedirect('/chat/')
         else:
             return render(request, 'auth/login.html', {'wrongPassword':True, 'redirect':redirect})
     return render(request, 'auth/login.html', {'redirect':redirect})
